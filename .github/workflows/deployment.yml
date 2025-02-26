@@ -17,21 +17,20 @@ jobs:
         env:
           RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
 
-  sync_to_gitlab:
+  push_to_gitlab:
     runs-on: ubuntu-latest
     needs: deploy_to_render  # Runs after the Render deployment
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up SSH
+      - name: Push to Gitlab 
+        env: 
+          TOKEN: ${{ secrets.GITLAB_ACCESS_TOKEN}}  
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.GITLAB_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan git.gvk.idi.ntnu.no >> ~/.ssh/known_hosts
-
-      - name: Mirror Push to GitLab
-        run: |
-          git remote add gitlab git@git.gvk.idi.ntnu.no:course/prog2005/prog2005-2025-workspace/tobi/prog2005-assignment-01.git
-          git push --mirror gitlab
+          git fetch --unshallow "https://github.com/t1001001/prog2005-assignment-01.git"
+          git config user.name "t1001001"
+          git config user.email "tobias1001001@proton.me"
+          git remote set-url origin "https://oauth2:$TOKEN@git.gvk.idi.ntnu.no/course/prog2005/prog2005-2025-workspace/tobi/prog2005-assignment-01.git"
+          git push -u origin --all  
+          git push -u origin --tags 
