@@ -19,7 +19,7 @@ jobs:
 
   push_to_gitlab:
     runs-on: ubuntu-latest
-    needs: deploy_to_render  # Runs after the Render deployment
+    needs: deploy_to_render 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
