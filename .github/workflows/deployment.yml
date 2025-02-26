@@ -24,13 +24,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Push to NTNU GitLab Workspace  # An optional Name
-        env: # Importing needed variables defined in the environment.
-          TOKEN: ${{ secrets.GITLAB_ACCESS_TOKEN}}  # Defining a variable names TOKEN in which holds the GITLAB_TOKEN defined
+      - name: Set up SSH
         run: |
-          git fetch --unshallow "https://github.com/t1001001/prog2005-assignment-01.git"
-          git config user.name "t1001001"
-          git config user.email "tobias1001001@proton.me"
-          git remote set-url origin "https://oauth2:$TOKEN@git.gvk.idi.ntnu.no/course/prog2005/prog2005-2025-workspace/tobi/prog2005-assignment-01.git"
-          git push -u origin --all  
-          git push -u origin --tags #
+          mkdir -p ~/.ssh
+          echo "${{ secrets.GITLAB_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan git.gvk.idi.ntnu.no >> ~/.ssh/known_hosts
+
+      - name: Mirror Push to GitLab
+        run: |
+          git remote add gitlab git@git.gvk.idi.ntnu.no:course/prog2005/prog2005-2025-workspace/tobi/prog2005-assignment-01.git
+          git push --mirror gitlab
