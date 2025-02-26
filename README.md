@@ -45,3 +45,7 @@ Example request:
 
 This endpoint indicates the availability of the individual services. Furthermore, it also returns the uptime of the whole service.
 
+# Deployment
+This service is also deployed on render.
+
+https://prog2005-assignment-01-5196.onrender.com
