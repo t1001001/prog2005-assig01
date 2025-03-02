@@ -11,7 +11,7 @@ import (
 	"github.com/t1001001/prog2005-assignment-01/internal/constants"
 )
 
-// country information
+// send GET request for basic information of a specific country
 func InfoHandler(w http.ResponseWriter, r *http.Request) {
 	// extracting the iso2 from the url
 	parts := strings.Split(r.URL.Path, "/")

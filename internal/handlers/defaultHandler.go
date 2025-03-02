@@ -1,36 +1,41 @@
 package handlers
 
 import (
-	"fmt"
+	"html/template"
 	"net/http"
+	"path/filepath"
 
 	"github.com/t1001001/prog2005-assignment-01/internal/constants"
 )
 
-// default handler when path is empty
+// default page of the service
 func DefaultHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
 
-	// client takes this as html
-	w.Header().Set("content-type", "text/html")
+	// defining the path
+	templatePath := filepath.Join("internal", "templates", "index.html")
 
-	// default message
-	output := fmt.Sprintf(
-		"Greetings traveler, this is the Country Information Service API.<br>"+
-			"There is nothing to see here, so move along. <br>"+
-			"<br>"+
-			"<a href=\"%s\">%s</a> is used for country details,<br>"+
-			"<a href=\"%s\">%s</a> is used for historical population data,<br>"+
-			"<a href=\"%s\">%s</a> is used for service diagnostics.",
-		constants.INFO_PATH, constants.INFO_PATH,
-		constants.POPULATION_PATH, constants.POPULATION_PATH,
-		constants.STATUS_PATH, constants.STATUS_PATH,
-	)
-
-	// client output
-	_, err := fmt.Fprintf(w, "%v", output)
-
-	// in case there are some funny errors
+	// parsing the template
+	template, err := template.ParseFiles(templatePath)
 	if err != nil {
-		http.Error(w, "Cannot return output", http.StatusInternalServerError)
+		http.Error(w, "Error loading template", http.StatusInternalServerError)
+		return
+	}
+
+	// template data
+	data := struct {
+		InfoPath       string
+		PopulationPath string
+		StatusPath     string
+	}{
+		InfoPath:       constants.INFO_PATH,
+		PopulationPath: constants.POPULATION_PATH,
+		StatusPath:     constants.STATUS_PATH,
+	}
+
+	// executing the template with the data
+	err = template.Execute(w, data)
+	if err != nil {
+		http.Error(w, "Error rendering template", http.StatusInternalServerError)
 	}
 }

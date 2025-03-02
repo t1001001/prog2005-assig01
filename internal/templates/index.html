@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Information Service API</title>
+</head>
+<body style="background-image: url('https://media.gettyimages.com/id/521517780/video/cartoon-earth-globe-spinning-loopable.jpg?s=640x640&k=20&c=6I3exKh9H3kIsVD8grwqRa4UH02ze_d0WkUHucd8L8o='); background-size: cover">
+    <nav style="background-color: rgba(0, 0, 0, 0.5); padding: 10px;">
+        <ul style="list-style-type: none; margin: 0; padding: 0; display: flex; justify-content: center;">
+            <li style="margin: 0 15px;"><a href="https://github.com/t1001001/prog2005-assignment-01" target="_blank" style="color: white; text-decoration: none; font-weight: bold;">GitHub</a></li>
+            <li style="margin: 0 15px;"><a href="https://git.gvk.idi.ntnu.no/course/prog2005/prog2005-2025-workspace/tobi/prog2005-assignment-01" target="_blank" style="color: white; text-decoration: none; font-weight: bold;">GitLab</a></li>
+        </ul>
+    </nav>
+    <h1>Greetings, traveler</h1>
+    <p>Welcome to the Country Information Service API!</p>
+    <p>This place looks empty, so let's move somewhere more interesing...</p>
+    <p>Your journey starts at one of these endpoints:</p>
+    <ul>
+        <li>
+            <a href="{{.InfoPath}}">Country details</a>
+            <p style="font-style: italic;">Get basic information about different countries 🗺️</p>
+        </li>
+        <li>
+            <a href="{{.PopulationPath}}">Historical population data</a>
+            <p style="font-style: italic;">Access historical population data for countries 👨‍👩‍👧‍👧</p>
+        </li>
+        <li>
+            <a href="{{.StatusPath}}">Service diagnostics</a>
+            <p style="font-style: italic;">Check the status of the service 🛜</p>
+        </li>
+    </ul>
+</body>
+</html>

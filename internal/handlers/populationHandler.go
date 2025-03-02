@@ -12,6 +12,7 @@ import (
 	"github.com/t1001001/prog2005-assignment-01/internal/constants"
 )
 
+// send GET request for population data of a specific country
 func PopulationHandler(w http.ResponseWriter, r *http.Request) {
 	// extracting the iso2 from the url
 	parts := strings.Split(r.URL.Path, "/")

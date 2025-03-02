@@ -32,6 +32,8 @@ Example request:
 ---
 ### Population Endpoint
 `population/{two_letter_country_code}{limit={startYear-endYear}}`
+
+This endpoint returns historical population information for a given country.
 - **two_letter_country_code** is the corressponding 2-letter country ISO code.
 - **limit** contrains the population history to values between a **startYear** and an **endYear**.
 *This parameter is optional.*
@@ -45,7 +47,20 @@ Example request:
 
 This endpoint indicates the availability of the individual services. Furthermore, it also returns the uptime of the whole service.
 
+# Testing
+To ensure the functionality of the service, tests have been implemented for the handlers.
+
+The tests are located in the `handlers` package and can be run using the following ways:
+
+- To execute all the tests, please run `go test ./...`.
+
+- If a more detailed output when running the tests is desired, please run `go test -v ./...`.
+
 # Deployment
-This service is also deployed on render.
+This service is also deployed on Render.
 
 https://prog2005-assignment-01-dx3w.onrender.com
+
+Everytime an update is pushed, it will automatically deploy to Render and the NTNU GitLab instance.
+
+For insight, look into the .yml file which is located in `.github/workflows/deployment.yml`.
