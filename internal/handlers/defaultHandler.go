@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"html/template"
+	"log"
 	"net/http"
 	"path/filepath"
 
@@ -14,6 +15,10 @@ func DefaultHandler(w http.ResponseWriter, r *http.Request) {
 
 	// defining the path
 	templatePath := filepath.Join("internal", "templates", "index.html")
+
+	// debugging
+	absPath, _ := filepath.Abs(templatePath)
+	log.Println(absPath)
 
 	// parsing the template
 	template, err := template.ParseFiles(templatePath)
