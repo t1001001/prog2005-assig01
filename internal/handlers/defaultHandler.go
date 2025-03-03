@@ -1,27 +1,26 @@
 package handlers
 
 import (
+	_ "embed"
 	"html/template"
 	"log"
 	"net/http"
-	"path/filepath"
 
 	"github.com/t1001001/prog2005-assignment-01/internal/constants"
 )
+
+//go:embed templates/index.html
+var indexHTML string
 
 // default page of the service
 func DefaultHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 
-	// defining the path
-	templatePath := filepath.Join("internal", "templates", "index.html")
-
 	// debugging
-	absPath, _ := filepath.Abs(templatePath)
-	log.Println(absPath)
+	log.Println("Using embedded template")
 
 	// parsing the template
-	template, err := template.ParseFiles(templatePath)
+	tmpl, err := template.New("index").Parse(indexHTML)
 	if err != nil {
 		http.Error(w, "Error loading template", http.StatusInternalServerError)
 		return
@@ -39,7 +38,7 @@ func DefaultHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// executing the template with the data
-	err = template.Execute(w, data)
+	err = tmpl.Execute(w, data)
 	if err != nil {
 		http.Error(w, "Error rendering template", http.StatusInternalServerError)
 	}
