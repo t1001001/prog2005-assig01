@@ -15,6 +15,7 @@ Please install the 1.23.4 version of Go.
 To install it, please run the following commands in your terminal:
 
 `go install golang.org/dl/go1.23.4@latest`
+
 `go1.23.4 download`
 
 ## How to use the service?
