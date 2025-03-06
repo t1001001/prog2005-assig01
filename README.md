@@ -10,6 +10,13 @@ The Country Information Service is a RESTful API for provides country-related in
 *Please note that these URLs are the actual API endpoints.*
 *This Assignment strictly invokes a self-hosted version of both endpoints.*
 
+## Dependencies
+Please install the 1.23.4 version of Go.
+To install it, please run the following commands in your terminal:
+
+`go install golang.org/dl/go1.23.4@latest`
+`go1.23.4 download`
+
 ## How to use the service?
 To run the service, simply run the `main.go` file
 
@@ -47,6 +54,9 @@ Example request:
 
 This endpoint indicates the availability of the individual services. Furthermore, it also returns the uptime of the whole service.
 
+Example request:
+- status
+
 # Testing
 To ensure the functionality of the service, tests have been implemented for the handlers.
 
@@ -61,6 +71,6 @@ This service is also deployed on Render.
 
 https://prog2005-assignment-01-dx3w.onrender.com
 
-Everytime an update is pushed, it will automatically deploy to Render and the NTNU GitLab instance.
+Everytime changes are pushed, all tests are run and if they all pass, the changes will be automatically pushed to Render and the corresponding GitLab instance.
 
 For insight, look into the .yml file which is located in `.github/workflows/deployment.yml`.
